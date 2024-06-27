@@ -1,0 +1,97 @@
+[
+  {
+    "id": "124345",
+    "createdAt": "2024-06-20T00:00:00Z",
+    "updatedAt": "2024-06-20T00:00:00Z",
+    "customerName": "John Doe",
+    "shippingAddress": "123 Main St, Anytown, USA",
+    "billingAddress": "123 Main St, Anytown, USA",
+    "items": [
+      {
+        "name": "Apple MacBook Pro 13-inch",
+        "quantity": 1,
+        "price": 1299,
+        "imageUrl": "https://m.media-amazon.com/images/I/61lsexTCOhL._AC_SX679_.jpg"
+      },
+      {
+        "name": "Samsung Galaxy S21",
+        "quantity": 2,
+        "price": 799,
+        "imageUrl": "https://m.media-amazon.com/images/I/51G6wgmR9vL._AC_SX679_.jpg"
+      }
+    ],
+    "status": "completed",
+    "discount": 100,
+    "shippingFee": 20,
+    "tax": 150,
+    "totalAmount": 2967,
+    "paymentStatus": "Paid",
+    "shippingMethod": "Standard Shipping",
+    "trackingNumber": "123456789",
+    "estimatedDelivery": "2024-06-25T00:00:00Z"
+  },
+  {
+    "id": "124346",
+    "createdAt": "2024-06-21T00:00:00Z",
+    "updatedAt": "2024-06-21T00:00:00Z",
+    "customerName": "Jane Smith",
+    "shippingAddress": "456 Elm St, Othertown, USA",
+    "billingAddress": "456 Elm St, Othertown, USA",
+    "items": [
+      {
+        "name": "Google Pixel 6",
+        "quantity": 1,
+        "price": 599,
+        "imageUrl": "https://m.media-amazon.com/images/I/71QQZr2pNSL._AC_SL1500_.jpg"
+      },
+      {
+        "name": "Dell XPS 13",
+        "quantity": 1,
+        "price": 999,
+        "imageUrl": "https://m.media-amazon.com/images/I/71fxAH5JnHL._AC_SX679_.jpg"
+      }
+    ],
+    "status": "pending",
+    "discount": 50,
+    "shippingFee": 30,
+    "tax": 80,
+    "totalAmount": 1657,
+    "paymentStatus": "Pending",
+    "shippingMethod": "Express Shipping",
+    "trackingNumber": "987654321",
+    "estimatedDelivery": "2024-06-22T00:00:00Z"
+  },
+  {
+    "id": "124347",
+    "createdAt": "2024-06-22T00:00:00Z",
+    "updatedAt": "2024-06-27T17:04:04.042Z",
+    "customerName": "Alice Johnson",
+    "shippingAddress": "789 Oak St, Newtown, USA",
+    "billingAddress": "789 Oak St, Newtown, USA",
+    "items": [
+      {
+        "id": "1",
+        "quantity": 4,
+        "name": "Apple MacBook Pro 13-inch",
+        "price": 1299,
+        "imageUrl": "https://m.media-amazon.com/images/I/61lsexTCOhL._AC_SX679_.jpg"
+      },
+      {
+        "id": "5",
+        "quantity": 2,
+        "name": "Google Pixel 6",
+        "price": 599,
+        "imageUrl": "https://m.media-amazon.com/images/I/71QQZr2pNSL._AC_SL1500_.jpg"
+      }
+    ],
+    "status": "shipped",
+    "discount": 70,
+    "shippingFee": 25,
+    "tax": 60,
+    "totalAmount": 6409,
+    "paymentStatus": "Paid",
+    "shippingMethod": "Standard Shipping",
+    "trackingNumber": "123459876",
+    "estimatedDelivery": "2024-07-06T00:00:00.000Z"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "name": "Apple MacBook Pro 13-inch",
+    "price": 1299,
+    "imageUrl": "https://m.media-amazon.com/images/I/61lsexTCOhL._AC_SX679_.jpg",
+    "description": "Powerful laptop with M1 chip.",
+    "category": "Laptops"
+  },
+  {
+    "id": "2",
+    "name": "Samsung Galaxy S21",
+    "price": 799,
+    "imageUrl": "https://m.media-amazon.com/images/I/51G6wgmR9vL._AC_SX679_.jpg",
+    "description": "Latest smartphone with cutting-edge features.",
+    "category": "Smartphones"
+  },
+  {
+    "id": "3",
+    "name": "Sony WH-1000XM4",
+    "price": 350,
+    "imageUrl": "https://m.media-amazon.com/images/I/51SKmu2G9FL._AC_SX679_.jpg",
+    "description": "Noise-cancelling over-ear headphones.",
+    "category": "Headphones"
+  },
+  {
+    "id": "4",
+    "name": "Apple Watch Series 7",
+    "price": 399,
+    "imageUrl": "https://m.media-amazon.com/images/I/71fxj9HPLPL._AC_SX679_.jpg",
+    "description": "Smartwatch with health tracking features.",
+    "category": "Wearables"
+  },
+  {
+    "id": "5",
+    "name": "Google Pixel 6",
+    "price": 599,
+    "imageUrl": "https://m.media-amazon.com/images/I/71QQZr2pNSL._AC_SL1500_.jpg",
+    "description": "Flagship smartphone with great camera.",
+    "category": "Smartphones"
+  },
+  {
+    "id": "6",
+    "name": "Dell XPS 13",
+    "price": 999,
+    "imageUrl": "https://m.media-amazon.com/images/I/71fxAH5JnHL._AC_SX679_.jpg",
+    "description": "Premium ultrabook with InfinityEdge display.",
+    "category": "Laptops"
+  }
+]
