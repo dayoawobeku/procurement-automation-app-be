@@ -13,7 +13,7 @@ const port = process.env.PORT || 3003;
 app.use(express.json());
 
 const corsOptions = {
-  origin: "*", // Allow all origins for testing, restrict in production
+  origin: "https://procurement-automation-app-iota.vercel.app",
   credentials: true, // Allow cookies and other credentials
 };
 
