@@ -8,12 +8,12 @@ import {
 } from "./routes";
 
 const app = express();
-const port = 3003;
+const port = process.env.PORT || 3003;
 
 app.use(express.json());
 
 const corsOptions = {
-  origin: "http://localhost:3001", // Update this to the appropriate frontend URL
+  origin: "*", // Allow all origins for testing, restrict in production
   credentials: true, // Allow cookies and other credentials
 };
 
@@ -24,5 +24,5 @@ app.use("/api/notifications", notificationsRouter);
 app.use("/api/summary", summaryRouter);
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on ${port}`);
 });
