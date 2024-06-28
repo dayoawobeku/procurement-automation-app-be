@@ -8,6 +8,7 @@ import {
   writeJsonFile,
 } from "../helpers";
 import { itemsFilePath, ordersFilePath } from "../constants";
+import { orderSchema } from "../schema";
 
 const router = express.Router();
 
@@ -54,18 +55,22 @@ router.post("/", (req: Request, res: Response) => {
   const orders = readJsonFile<Order>(ordersFilePath);
   const existingItems = readJsonFile<OrderItem>(itemsFilePath);
 
+  const { error, value } = orderSchema.validate(req.body);
+  if (error) {
+    return res.status(400).send({ error: error.details[0].message });
+  }
+
   const newOrder: Order = {
-    ...req.body,
+    ...value,
     id: String(Math.floor(100000 + Math.random() * 900000)),
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    status: "pending",
+    paymentStatus: "unpaid",
+    billingAddress: value.shippingAddress,
+    trackingNumber: String(Math.floor(100000000 + Math.random() * 900000000)),
   };
-  newOrder.status = "pending";
-  newOrder.paymentStatus = "unpaid";
-  newOrder.billingAddress = newOrder.shippingAddress;
-  newOrder.trackingNumber = String(
-    Math.floor(100000000 + Math.random() * 900000000)
-  );
+
   newOrder.items.forEach((item) => {
     const existingItem = existingItems.find(
       (existingItem) => existingItem.id === item.id
@@ -88,11 +93,16 @@ router.put("/:id", (req: Request, res: Response) => {
   const orders = readJsonFile<Order>(ordersFilePath);
   const existingItems = readJsonFile<OrderItem>(itemsFilePath);
 
+  const { error, value } = orderSchema.validate(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
   const index = orders.findIndex((order) => order.id === req.params.id);
   if (index !== -1) {
     orders[index] = {
       ...orders[index],
-      ...req.body,
+      ...value,
       updatedAt: new Date().toISOString(),
     };
 

@@ -5,6 +5,7 @@ import { calculateTotalAmount } from "../../helpers";
 import { ordersFilePath } from "../../constants";
 import { Order } from "../../../types";
 import { ordersRouter } from "../../routes";
+import { orderSchema } from "../../schema";
 
 const mockOrders: Order[] = [
   {
@@ -18,7 +19,8 @@ const mockOrders: Order[] = [
         quantity: 1,
         price: 10,
         name: "Item 2",
-        imageUrl: "item2.jpg",
+        imageUrl:
+          "https://m.media-amazon.com/images/I/51SKmu2G9FL._AC_SX679_.jpg",
       },
     ],
     shippingFee: 10,
@@ -29,10 +31,10 @@ const mockOrders: Order[] = [
     billingAddress: "",
     status: "completed",
     totalAmount: 0,
-    paymentStatus: "",
-    shippingMethod: "",
-    trackingNumber: "",
-    estimatedDelivery: "",
+    paymentStatus: "Paid",
+    shippingMethod: "Standard Shipping",
+    trackingNumber: "123459876",
+    estimatedDelivery: "2024-07-06T00:00:00.000Z",
   },
   {
     id: "2",
@@ -97,10 +99,12 @@ beforeEach(() => {
 
 describe("API Integration Tests", () => {
   it("POST /api/orders should create a new order", async () => {
-    const newOrder: Order = {
+    const newOrder: Omit<
+      Order,
+      "id" | "createdAt" | "updatedAt" | "billingAddress" | "totalAmount"
+    > = {
       customerName: "John Doe",
       shippingAddress: "123 Main St",
-      billingAddress: "123 Main St",
       items: [
         {
           id: "1",
@@ -120,16 +124,19 @@ describe("API Integration Tests", () => {
       shippingFee: 10,
       discount: 5,
       tax: 2,
-      id: "123456",
-      createdAt: "2024-06-20T00:00:00Z",
-      updatedAt: "2024-06-20T00:00:00Z",
       status: "completed",
-      totalAmount: 0,
       paymentStatus: "Paid",
       shippingMethod: "Standard Shipping",
       trackingNumber: "123456789",
       estimatedDelivery: "2024-06-25T00:00:00Z",
     };
+
+    const { error } = orderSchema.validate(newOrder);
+    if (error) {
+      throw new Error(
+        `Validation error: ${error.details.map((d) => d.message).join(", ")}`
+      );
+    }
 
     const response = await request(app)
       .post("/api/orders")
@@ -179,7 +186,41 @@ describe("API Integration Tests", () => {
   it("PUT /api/orders/:id should update an existing order", async () => {
     __setOrders(mockOrders);
 
-    const updatedOrder = { ...mockOrders[0], customerName: "Jane Doe" };
+    const updatedOrder = {
+      customerName: "Jane Doe",
+      shippingAddress: "456 Elm St",
+      items: [
+        {
+          id: "3",
+          quantity: 1,
+          price: 15,
+          name: "Item 3",
+          imageUrl: "item3.jpg",
+        },
+        {
+          id: "4",
+          quantity: 3,
+          price: 8,
+          name: "Item 4",
+          imageUrl: "item4.jpg",
+        },
+      ],
+      shippingFee: 15,
+      discount: 0,
+      tax: 3,
+      status: "completed",
+      paymentStatus: "Paid",
+      shippingMethod: "Standard Shipping",
+      trackingNumber: "123456789",
+      estimatedDelivery: "2024-06-25T00:00:00Z",
+    };
+
+    const { error } = orderSchema.validate(updatedOrder);
+    if (error) {
+      throw new Error(
+        `Validation error: ${error.details.map((d) => d.message).join(", ")}`
+      );
+    }
 
     const response = await request(app)
       .put(`/api/orders/${mockOrders[0].id}`)
@@ -187,11 +228,12 @@ describe("API Integration Tests", () => {
       .expect(200);
 
     expect(response.body.customerName).toBe(updatedOrder.customerName);
+    expect(response.body.id).toBe(mockOrders[0].id);
 
     const orders = JSON.parse(
       fs.readFileSync(ordersFilePath, "utf8")
     ) as Order[];
-    const existingOrder = orders.find((order) => order.id === updatedOrder.id);
+    const existingOrder = orders.find((order) => order.id === mockOrders[0].id);
 
     expect(existingOrder?.customerName).toBe(updatedOrder.customerName);
   });
