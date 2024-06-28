@@ -1,36 +1,15 @@
 import express, { Request, Response } from "express";
-import fs from "fs";
-import path from "path";
 import orderBy from "lodash/orderBy";
-import { createNotification } from "./notifications";
-import { Order, OrderItem } from "../types";
+import { Order, OrderItem } from "../../types";
+import {
+  calculateTotalAmount,
+  createNotification,
+  readJsonFile,
+  writeJsonFile,
+} from "../helpers";
+import { itemsFilePath, ordersFilePath } from "../constants";
 
 const router = express.Router();
-
-const ordersFilePath = path.resolve(__dirname, "../data/orders.json");
-const itemsFilePath = path.resolve(__dirname, "../data/items.json");
-
-const readJsonFile = <T>(filePath: string): T[] => {
-  const data = fs.readFileSync(filePath, "utf8");
-  return JSON.parse(data) as T[];
-};
-
-const writeJsonFile = <T>(filePath: string, data: T[]): void => {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-};
-
-const calculateTotalAmount = (order: Order): number => {
-  const itemsTotal = order.items.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-  return (
-    itemsTotal -
-    (order.discount || 0) +
-    (order.shippingFee || 0) +
-    (order.tax || 0)
-  );
-};
 
 router.get("/", (req: Request, res: Response) => {
   const orders = readJsonFile<Order>(ordersFilePath);

@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import fs from "fs";
 import path from "path";
-import { Notification, Order } from "../types";
+import { Notification, Order } from "../../types";
 
 const router = express.Router();
 
